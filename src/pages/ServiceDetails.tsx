@@ -203,16 +203,27 @@ export default function ProductDetails() {
       {/* وسوم Open Graph لعرض صورة المنتج عند مشاركة الرابط (واتساب وغيره) */}
       <Helmet>
         <meta property="og:title" content={service?.title || ''} />
-        <meta property="og:description" content={service?.description || ''} />
+        <meta
+          property="og:description"
+          content={(currentLanguage === 'en' && service?.description_en && service.description_en.trim())
+            ? service.description_en.slice(0, 200)
+            : (service?.description || '').slice(0, 200)}
+        />
         <meta property="og:image" content={ogImage} />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:url" content={typeof window !== 'undefined' ? window.location.href : ''} />
         <meta property="og:type" content="product" />
+        <meta property="og:locale" content={currentLanguage === 'ar' ? 'ar_AR' : 'en_US'} />
         {/* دعم تويتر أيضاً */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={service?.title || ''} />
-        <meta name="twitter:description" content={service?.description || ''} />
+        <meta
+          name="twitter:description"
+          content={(currentLanguage === 'en' && service?.description_en && service.description_en.trim())
+            ? service.description_en.slice(0, 200)
+            : (service?.description || '').slice(0, 200)}
+        />
         <meta name="twitter:image" content={ogImage} />
       </Helmet>
       <div className="min-h-screen flex flex-col pt-24" style={backgroundStyles}>

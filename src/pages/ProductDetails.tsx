@@ -6,6 +6,7 @@ import { MessageCircle } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { toast } from 'react-toastify';
+import { Helmet } from 'react-helmet-async';
 
 function usePrevious<T>(value: T): T | undefined {
   const ref = useRef<T>();
@@ -194,6 +195,37 @@ export default function ProductDetails() {
 
   return (
     <div className="min-h-screen flex flex-col pt-24 relative" style={backgroundStyles}>
+      {service && (
+        <Helmet>
+          <title>{service.title}</title>
+          <meta
+            name="description"
+            content={(currentLanguage === 'en' && service.description_en && service.description_en.trim())
+              ? service.description_en.slice(0, 200)
+              : (service.description || '').slice(0, 200)}
+          />
+          <meta property="og:title" content={service.title} />
+          <meta
+            property="og:description"
+            content={(currentLanguage === 'en' && service.description_en && service.description_en.trim())
+              ? service.description_en.slice(0, 200)
+              : (service.description || '').slice(0, 200)}
+          />
+          <meta property="og:type" content="product" />
+          <meta property="og:url" content={typeof window !== 'undefined' ? window.location.href : ''} />
+          <meta property="og:image" content={(service.image_url || (Array.isArray(service.gallery) && service.gallery[0]) || '/logo.svg') as string} />
+          <meta property="og:locale" content={currentLanguage === 'ar' ? 'ar_AR' : 'en_US'} />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={service.title} />
+          <meta
+            name="twitter:description"
+            content={(currentLanguage === 'en' && service.description_en && service.description_en.trim())
+              ? service.description_en.slice(0, 200)
+              : (service.description || '').slice(0, 200)}
+          />
+          <meta name="twitter:image" content={(service.image_url || (Array.isArray(service.gallery) && service.gallery[0]) || '/logo.svg') as string} />
+        </Helmet>
+      )}
       <div className="flex items-center justify-center flex-grow py-8">
         <div className="container mx-auto px-4 max-w-4xl lg:max-w-5xl">
           <div className="rounded-md shadow-lg overflow-hidden glass">
