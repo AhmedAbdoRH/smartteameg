@@ -3,16 +3,16 @@
   command = "npm run build"
   publish = "dist"
 
-# Prerender.io integration with token-based authentication
-[[redirects]]
-  from = "/*"
-  to = "https://service.prerender.io/https://perfume-ambassador.com/:splat"
-  status = 200
-  force = false
-  headers = {X-Prerender-Token = "V85u5WS8kbxdXKCF5KuR"}
-  conditions = {User-Agent = ["Googlebot", "Bingbot", "Yandex", "DuckDuckBot", "Baiduspider", "facebookexternalhit", "twitterbot", "rogerbot", "linkedinbot", "embedly", "quora link preview", "showyoubot", "outbrain", "pinterest", "slackbot", "vkShare", "W3C_Validator"]}
+# Configure Netlify Functions bundler (optional but recommended for edge function TypeScript support)
+[functions]
+  node_bundler = "esbuild"
 
-# SPA routing - fallback for regular users
+# Register the Edge Function to run for every incoming request
+[[edge_functions]]
+  function = "prerender"
+  path = "/*"
+
+# SPA routing fallback – serve index.html for unmatched routes
 [[redirects]]
   from = "/*"
   to = "/index.html"
