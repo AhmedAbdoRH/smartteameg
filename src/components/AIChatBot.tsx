@@ -11,9 +11,9 @@ interface Message {
     timestamp: Date;
 }
 
-const GEMINI_API_KEY = "AIzaSyCwgyjNpQLL1MvJxbsfJddhxTxQb300uT8";
-const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent";
-const GEMINI_MODEL = "gemini-2.0-flash";
+const GEMINI_API_KEY = "AIzaSyA-Tqgy0Fjq1JGiNW7ZC2LJyrNL-YotofI"; 
+const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent";
+const GEMINI_MODEL = "gemini-3-flash-preview";
 
 const RenderMessageWithLinks = ({ text }: { text: string }) => {
     const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
