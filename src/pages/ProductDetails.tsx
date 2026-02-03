@@ -200,22 +200,16 @@ export default function ProductDetails() {
           <title>{service.title}</title>
           <meta
             name="description"
--            content={(service.description_en && service.description_en.trim())
--              ? service.description_en.slice(0, 200)
--              : (service.description || '').slice(0, 200)}
-+            content={(service.description_en && service.description_en.trim())
-+              ? service.description_en.slice(0, 200)
-+              : (service.description || '').slice(0, 200)}
+            content={(service.description_en && service.description_en.trim())
+              ? service.description_en.slice(0, 200)
+              : (service.description || '').slice(0, 200)}
           />
           <meta property="og:title" content={service.title} />
           <meta
             property="og:description"
--            content={(service.description_en && service.description_en.trim())
--              ? service.description_en.slice(0, 200)
--              : (service.description || '').slice(0, 200)}
-+            content={(service.description_en && service.description_en.trim())
-+              ? service.description_en.slice(0, 200)
-+              : (service.description || '').slice(0, 200)}
+            content={(service.description_en && service.description_en.trim())
+              ? service.description_en.slice(0, 200)
+              : (service.description || '').slice(0, 200)}
           />
           <meta property="og:type" content="product" />
           <meta property="og:url" content={typeof window !== 'undefined' ? window.location.href : ''} />
@@ -225,12 +219,9 @@ export default function ProductDetails() {
           <meta name="twitter:title" content={service.title} />
           <meta
             name="twitter:description"
--            content={(service.description_en && service.description_en.trim())
--              ? service.description_en.slice(0, 200)
--              : (service.description || '').slice(0, 200)}
-+            content={(service.description_en && service.description_en.trim())
-+              ? service.description_en.slice(0, 200)
-+              : (service.description || '').slice(0, 200)}
+            content={(service.description_en && service.description_en.trim())
+              ? service.description_en.slice(0, 200)
+              : (service.description || '').slice(0, 200)}
           />
           <meta name="twitter:image" content={(service.image_url || (Array.isArray(service.gallery) && service.gallery[0]) || '/logo.svg') as string} />
         </Helmet>
