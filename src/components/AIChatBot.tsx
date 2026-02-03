@@ -11,7 +11,7 @@ interface Message {
     timestamp: Date;
 }
 
-const GEMINI_API_KEY = "AIzaSyA-Tqgy0Fjq1JGiNW7ZC2LJyrNL-YotofI"; 
+const GEMINI_API_KEY = "AIzaSyBs4iyOjO9G_rb2eNJNvIky5H-d1rmLWf0"; 
 const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent";
 const GEMINI_MODEL = "gemini-3-flash-preview";
 
