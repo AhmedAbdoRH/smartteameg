@@ -11,9 +11,9 @@ interface Message {
     timestamp: Date;
 }
 
-const GEMINI_API_KEY = "AIzaSyBs4iyOjO9G_rb2eNJNvIky5H-d1rmLWf0"; 
-const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent";
-const GEMINI_MODEL = "gemini-3-flash-preview";
+const GROQ_API_KEY = "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";
+const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
+const GROQ_MODEL = "openai/gpt-oss-120b";
 
 const RenderMessageWithLinks = ({ text }: { text: string }) => {
     const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
@@ -126,31 +126,38 @@ export default function AIChatBot() {
     const sendToAI = async (userMessage: string): Promise<string> => {
         const systemPrompt = generateStoreContext();
 
-        const geminiMessages = [
-            { role: "user", parts: [{ text: systemPrompt }] },
-            { role: "model", parts: [{ text: "تمام، أنا جاهز لمساعدة العملاء." }] },
-            { role: "user", parts: [{ text: userMessage }] }
+        const messages = [
+            { role: "system", content: systemPrompt },
+            { role: "user", content: userMessage }
         ];
 
         try {
-            const response = await fetch(`${GEMINI_API_URL}?key=${GEMINI_API_KEY}`, {
+            const response = await fetch(GROQ_API_URL, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ contents: geminiMessages, generationConfig: { temperature: 0.7, maxOutputTokens: 1024 } })
+                headers: { 
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${GROQ_API_KEY}`
+                },
+                body: JSON.stringify({ 
+                    model: GROQ_MODEL,
+                    messages: messages,
+                    temperature: 0.7,
+                    max_tokens: 1024
+                })
             });
 
             if (!response.ok) {
                 const errorData = await response.json();
-                console.error('API Error:', errorData);
-                throw new Error(`فشل في الاتصال بالخدمة: ${errorData.error.message}`);
+                console.error('Groq API Error:', errorData);
+                throw new Error(`فشل في الاتصال بالخدمة: ${errorData.error?.message || response.statusText}`);
             }
 
             const data = await response.json();
-            const textResponse = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+            const textResponse = data?.choices?.[0]?.message?.content;
 
             return textResponse?.trim() || 'معلش، مافهمتش سؤالك، ممكن توضحلي محتاج ايه بالظبط.';
         } catch (error) {
-            console.error('Error calling Gemini API:', error);
+            console.error('Error calling Groq API:', error);
             return '⚠️ حدث خطأ تقني.';
         }
     };
