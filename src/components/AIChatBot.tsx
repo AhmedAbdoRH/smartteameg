@@ -11,7 +11,7 @@ interface Message {
     timestamp: Date;
 }
 
-const GROQ_API_KEY = "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";
+const GROQ_API_KEY = "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";
 const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
 const GROQ_MODEL = "openai/gpt-oss-120b";
 
